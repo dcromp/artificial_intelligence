@@ -1,3 +1,3 @@
 # Artificial Intelligence
 
-The work here is my submissions towards Udacity's A.I nanodegree
+The work here is various work and courses in the theme of A.I
