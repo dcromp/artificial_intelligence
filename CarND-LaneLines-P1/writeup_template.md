@@ -16,9 +16,9 @@ The goals / steps of this project are the following:
 [//]: # (Image References)
 
 [image1]: ./solutions/canny_solidWhiteCurve.jpg "Canny"
-[image2]: ./region_solidWhiteCurve.jpg "Region of interest"
-[image3]: ./hough_solidWhiteCurve.jpg "Hough Lines"
-[image4]: ./line_solidWhiteCurve.jpg "End result"
+[image2]: ./solutions/region_solidWhiteCurve.jpg "Region of interest"
+[image3]: ./solutions/hough_solidWhiteCurve.jpg "Hough Lines"
+[image4]: ./solutions/line_solidWhiteCurve.jpg "End result"
 
 ---
 
