@@ -121,20 +121,27 @@ My final model results were:
 
 If an iterative approach was chosen:
 * What was the first architecture that was tried and why was it chosen?
+
 First I tried the basic LeNet model to make sure I could get a known model the run. Then I started by adding blocks of convolutions with a stride of 1, much like those used in VGG 16.
 * What were some problems with the initial architecture?
+
 At first the my new network wouldn't train, but the LeNet version produced validation accuracy of around 83%. After lowering the learning late, I finally got my new network to train.
 * How was the architecture adjusted and why was it adjusted? Typical adjustments could include choosing a different model architecture, adding or taking away layers (pooling, dropout, convolution, etc), using an activation function or changing the activation function. One common justification for adjusting an architecture would be due to overfitting or under fitting. A high accuracy on the training set but low accuracy on the validation set indicates over fitting; a low accuracy on both sets indicates under fitting.
+
 After 10 or so epochs the network would begin to overfit, as indicated by a lowering of validation accuracy. Adding dropout layers seemed to effectively solve this, and the network would increase in accuracy before completing all epochs.
 * Which parameters were tuned? How were they adjusted and why?
+
 I had to adjust the learning rate, otherwise the loss of the network was fixed at a constant at each epoch.
 * What are some of the important design choices and why were they chosen? For example, why might a convolution layer work well with this problem? How might a dropout layer help with creating a successful model?
+
 Convolution layers should be able to break down the spatial features of the images into a set of non-spatially correlated features that the deep layers can predict on. Also convolution layers are able to take into account the colours of the images, with red, blue and yellow being important colours in traffic signs, so likely to have a large predictive power.
 
 If a well known architecture was chosen:
 * What architecture was chosen?
+
 VGG16
 * Why did you believe it would be relevant to the traffic sign application?
+
 VGG is a fairly simple network, so easy to code. But has be proven to outperform LeNet (Very deep convolutional networks for large scale image recognition: https://arxiv.org/pdf/1409.1556.pdf).
 * How does the final model's accuracy on the training, validation and test set provide evidence that the model is working well?
 
