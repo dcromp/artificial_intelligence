@@ -22,7 +22,7 @@ The goals / steps of this project are the following:
 [image1]: ./resources/signs.png "signs"
 [image2]: ./resources/classes.png "classes"
 
-[image3]: ./examples/random_noise.jpg "Random Noise"
+[image3]: ./resources/tilted.png "Tilted"
 
 
 [image4]: ./street_signs/12.jpeg "Traffic Sign 1"
@@ -60,7 +60,7 @@ Here is an exploratory visualization of the data set.
 First is a plot of a random selection of images within the dataset.
 ![alt text][image1]
 Second is a plot of the distribution of classes within the training set.
-![alt text][image1]
+![alt text][image2]
 Some classes like 0 (speed limit 20) and 19 (Dangerous curve to the right) are hardly represented at all. While class 2 (speed limit 50) has the highest representation out of all the classes. This class imbalance could make some of the classes hard to predict accurately.
 
 ### Design and Test a Model Architecture
@@ -68,6 +68,11 @@ Some classes like 0 (speed limit 20) and 19 (Dangerous curve to the right) are h
 #### 1. Describe how you preprocessed the image data. What techniques were chosen and why did you choose these techniques? Consider including images showing the output of each preprocessing technique. Pre-processing refers to techniques such as converting to grayscale, normalization, etc. (OPTIONAL: As described in the "Stand Out Suggestions" part of the rubric, if you generated additional data for training, describe why you decided to generate additional data, how you generated the data, and provide example images of the additional data. Then describe the characteristics of the augmented training set like number of images in the set, number of images for each class, etc.)
 
 For pre-processing I used two methods. First I created new images by adding rotations to the original images. The rotations where between 0-10 degrees. Then I scaled the data to be between -1 and +1, which I found to be the most effective in producing high accuracy during the early epochs.
+
+![alt text][image3]
+Example of rotation
+
+
 
 
 #### 2. Describe what your final model architecture looks like including model type, layers, layer sizes, connectivity, etc.) Consider including a diagram and/or table describing the final model.
