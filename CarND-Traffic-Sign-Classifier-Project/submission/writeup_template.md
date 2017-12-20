@@ -22,11 +22,14 @@ The goals / steps of this project are the following:
 [image1]: ./resources/signs.png "signs"
 [image2]: ./resources/classes.png "classes"
 
-[image3]: ./resources/transformations.png "Tilted"
+[image3]: ./resources/tilted.png "Tilted"
 
 
-[image4]: ./resources/german_signs.png "Traffic Sign 1"
-
+[image4]: ./street_signs/12.jpeg "Traffic Sign 1"
+[image5]: ./street_signs/17.jpeg "Traffic Sign 2"
+[image6]: ./street_signs/13.jpeg "Traffic Sign 3"
+[image7]: ./street_signs/14_33.jpeg "Traffic Sign 4"
+[image8]: ./street_signs/9.jpg "Traffic Sign 5"
 
 ## Rubric Points
 ### Here I will consider the [rubric points](https://review.udacity.com/#!/rubrics/481/view) individually and describe how I addressed each point in my implementation.  
@@ -64,11 +67,10 @@ Some classes like 0 (speed limit 20) and 19 (Dangerous curve to the right) are h
 
 #### 1. Describe how you preprocessed the image data. What techniques were chosen and why did you choose these techniques? Consider including images showing the output of each preprocessing technique. Pre-processing refers to techniques such as converting to grayscale, normalization, etc. (OPTIONAL: As described in the "Stand Out Suggestions" part of the rubric, if you generated additional data for training, describe why you decided to generate additional data, how you generated the data, and provide example images of the additional data. Then describe the characteristics of the augmented training set like number of images in the set, number of images for each class, etc.)
 
-For pre-processing I used three key methods. First I created a histogram equalization representation of the images. This should limit the effect of the image brightness to be consistent across all the images. This will be especially be useful in bringing out features in the darker images.
-This was followed by a process of data augmentation, with new data created by adding rotations to the original images. The rotations where between 0-10 degrees. Then I scaled the data to be between -1 and +1, which I found to be the most effective in producing high accuracy during the early epochs.
+For pre-processing I used two methods. First I created new images by adding rotations to the original images. The rotations where between 0-10 degrees. Then I scaled the data to be between -1 and +1, which I found to be the most effective in producing high accuracy during the early epochs.
 
 ![alt text][image3]
-Example of transformations
+Example of rotation
 
 
 
@@ -108,12 +110,7 @@ My final model consisted of the following layers:
 
 #### 3. Describe how you trained your model. The discussion can include the type of optimizer, the batch size, number of epochs and any hyperparameters such as learning rate.
 
-To train the model I adjusted the following hyperparameters:
-Batchsize of 62: The algorithm was run on the CPU with a fairly large memory,
-epochs 20: All the models I ran seemed to almost converge by 15 epochs, so 20 seemed like a safe choice between time vs. accuracy.
-Learning Rate 0.0005: Learning rate was the most tricky to pick as the architecture greatly affected the optimum learning rate. For my model 0.0005 seemed to work well. At 0.0001 it would learn very slow and at 0.001 it failed to learn at all. The LeNet model on the other hand learnt very well at 0.001.
-Optimizer: Adam and RMSprop were invistgated but I had more luck with adam, with better learning speed and accuracy. After a quick search I found several resources that came to the same conclusion.
- https://shaoanlu.wordpress.com/2017/05/29/sgd-all-which-one-is-the-best-optimizer-dogs-vs-cats-toy-experiment/
+To train the model, I used an ....
 
 #### 4. Describe the approach taken for finding a solution and getting the validation set accuracy to be at least 0.93. Include in the discussion the results on the training, validation and test sets and where in the code these were calculated. Your approach may have been an iterative process, in which case, outline the steps you took to get to the final solution and why you chose those steps. Perhaps your solution involved an already well known implementation or architecture. In this case, discuss why you think the architecture is suitable for the current problem.
 
@@ -155,70 +152,70 @@ VGG is a fairly simple network, so easy to code. But has be proven to outperform
 
 Here are five German traffic signs that I found on the web:
 
-![alt text][image4]
+![alt text][image4] ![alt text][image5] ![alt text][image6]
+![alt text][image7] ![alt text][image8]
 
 The forth image may prove hard to classify has it has a smaller, second traffic sign underneath a larger traffic sign. Also both these signs don't appear as often in the dataset as the other images chosen.
 
 #### 2. Discuss the model's predictions on these new traffic signs and compare the results to predicting on the test set. At a minimum, discuss what the predictions were, the accuracy on these new predictions, and compare the accuracy to the accuracy on the test set (OPTIONAL: Discuss the results in more detail as described in the "Stand Out Suggestions" part of the rubric).
 
-Here are the results of the prediction of the highest scoring run (40%) as shown in the notebook cell 18:
+Here are the results of the prediction of the highest scoring run (20%). Often the model would produce 0% accuracy on this data set, as shown in the notebook cell 18:
 
 | Image			        |     Prediction	        					|
 |:---------------------:|:---------------------------------------------:|
-| Priority road      		| Priority road   									|
-| No passing     			| No entry										|
-| Yield					| Yield											|
-| Stop	      		| Vehicles over 3.5 metric tons prohibited					 				|
-| No entry			| Stop      							|
+| Priority road      		| Dangerous curve to the right   									|
+| No entry     			| No entry										|
+| Yield					| Priority road											|
+| Stop	      		| No passing					 				|
+| No passing			| Yield      							|
 
 
 The model was able to correctly guess 1 of the 5 traffic signs, which gives an accuracy of 20%. This significantly underperforms the 90% scored on the test set.
 
 #### 3. Describe how certain the model is when predicting on each of the five new images by looking at the softmax probabilities for each prediction. Provide the top 5 softmax probabilities for each image along with the sign type of each probability. (OPTIONAL: as described in the "Stand Out Suggestions" part of the rubric, visualizations can also be provided such as bar charts)
 
+The code for making predictions on my final model is located in the 19th cell of the Ipython notebook.
+These results are from the last run of the notebook and actually scored 0% accuracy, but show some interesting patterns.
 
-The softmax probabilities of the results of the model are shown below. Interestingly the model scored extremely high, close to 0.99-1 for every prediction, so the model was very certain even when wrong.
+For the first the image, Priority Road, the algorithm seemed to think the image was either a speed limit or no passing sign. Interesting as these signs are fairly similar, red circle with white centre.  Priority road is a yellow diamond so clearly the algorithm does not understand colour or shape too well.
 
+Vehicles over 3.5 metric tons prohibited - 0.95 %
+No passing for vehicles over 3.5 metric tons - 0.51%
+No passing
+End of no passing by vehicles over 3.5 metric tons
+Priority road
 
+For the second image, No passing, the model was only 50% sure it was a Slippery road sign.
 
-The results for the class Priority road:
-    Priority road with probability :- 1.0
-    Ahead only with probability :- 4.718349044807724e-10
-    No entry with probability :- 4.2280973167052593e-10
-    Speed limit (120km/h) with probability :- 4.401532610609493e-11
-    Roundabout mandatory with probability :- 2.3511449731561385e-11
+Slippery road - 0.507
+Right-of-way at the next intersection
+Traffic signals
+Priority road
+Beware of ice/snow
 
+For the third image Yield, the algorithm was very sure the image was Priority road.
 
-    The results for the class No passing:
-    No entry with probability :- 1.0
-    Turn left ahead with probability :- 1.6427426086096375e-10
-    Speed limit (80km/h) with probability :- 1.06284772649623e-10
-    Stop with probability :- 1.0172858389001505e-10
-    No vehicles with probability :- 2.4652009600334424e-11
+Priority road - 0.99
+Road work
+Yield
+End of no passing by vehicles over 3.5 metric tons
+Turn right ahead
 
+Fourth image Stop also predicted with near certainty to be Priority road
 
-    The results for the class Yield:
-    Yield with probability :- 0.9999377727508545
-    No passing for vehicles over 3.5 metric tons with probability :- 6.199027120601386e-05
-    Keep right with probability :- 2.2937145160994987e-07
-    Wild animals crossing with probability :- 2.4040096580080217e-09
-    Speed limit (120km/h) with probability :- 6.102564287235879e-11
+Priority road - 0.999999
+Yield
+No entry
+Stop
+Keep right
 
+No entry was predicted to be yield at almost 100%
 
-    The results for the class Stop:
-    Vehicles over 3.5 metric tons prohibited with probability :- 0.9928694367408752
-    No passing with probability :- 0.005848763510584831
-    Speed limit (100km/h) with probability :- 0.0008854049956426024
-    No passing for vehicles over 3.5 metric tons with probability :- 0.0003294068737886846
-    Roundabout mandatory with probability :- 3.82636280846782e-05
-
-
-    The results for the class No entry:
-    Stop with probability :- 0.9996724128723145
-    Turn right ahead with probability :- 0.00019469571998342872
-    End of no passing by vehicles over 3.5 metric tons with probability :- 8.540235285181552e-05
-    Speed limit (80km/h) with probability :- 2.573734673205763e-05
-    No vehicles with probability :- 1.2314597370277625e-05
+Yield - 0.9999
+Speed limit (50km/h)
+Go straight or left
+Keep right
+Speed limit (30km/h)
 
 ### (Optional) Visualizing the Neural Network (See Step 4 of the Ipython notebook for more details)
 #### 1. Discuss the visual output of your trained network's feature maps. What characteristics did the neural network use to make classifications?
