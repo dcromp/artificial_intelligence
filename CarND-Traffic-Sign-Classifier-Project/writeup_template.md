@@ -109,9 +109,13 @@ My final model consisted of the following layers:
 #### 3. Describe how you trained your model. The discussion can include the type of optimizer, the batch size, number of epochs and any hyperparameters such as learning rate.
 
 To train the model I adjusted the following hyperparameters:
-Batchsize of 62: The algorithm was run on the CPU with a fairly large memory,
+
+Batchsize of 62: The algorithm was run on the CPU with a fairly large memory. 62 seemed to run faster than a 32 batch
+
 epochs 20: All the models I ran seemed to almost converge by 15 epochs, so 20 seemed like a safe choice between time vs. accuracy.
+
 Learning Rate 0.0005: Learning rate was the most tricky to pick as the architecture greatly affected the optimum learning rate. For my model 0.0005 seemed to work well. At 0.0001 it would learn very slow and at 0.001 it failed to learn at all. The LeNet model on the other hand learnt very well at 0.001.
+
 Optimizer: Adam and RMSprop were invistgated but I had more luck with adam, with better learning speed and accuracy. After a quick search I found several resources that came to the same conclusion.
  https://shaoanlu.wordpress.com/2017/05/29/sgd-all-which-one-is-the-best-optimizer-dogs-vs-cats-toy-experiment/
 
