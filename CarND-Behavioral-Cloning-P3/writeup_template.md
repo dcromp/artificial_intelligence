@@ -56,6 +56,7 @@ The model.py file contains the code for training and saving the convolution neur
 
 
 The architecture of my model was almost identical to the model developed by Nvidia in their end to end self driving car paper. (https://images.nvidia.com/content/tegra/automotive/images/2016/solutions/pdf/end-to-end-dl-using-px.pdf)
+
 Like the Nvidia architecture, my model consisted of one normalization layer, five convolution layers followed by three fully connected layers. The first three convolutions had a stride of two, with a filter size of five by five. This was followed by two convolutions also with a stride of two, but a filter size of three. ReLu layers where used throughout the network. 
 
 The main difference between my model and the Nvidia model is I have an extra cropping layer at the start of the network. This was to avoid the model training of background details, such as mountains and trees, and focus on learning towards to road.
@@ -92,6 +93,8 @@ If the validation loss of the model does not lower for 5 epochs, the weights tha
 After being satisfied with the results I then recorded the video using video.py and drive.py
 
 #### 2. Final Model Architecture
+
+The figure below shows the final architecture used for my model with the output shapes at each step. All convolutions used a stride of two and the dropout was 20%.
 
 ![alt text][image2]
 
