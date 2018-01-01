@@ -20,11 +20,8 @@ The goals / steps of this project are the following:
 
 [image1]: ./resources/nvidia_cnn.png "Nvidia model"
 [image2]: ./resources/my_network.png "my model"
-[image3]: ./examples/placeholder_small.png "Recovery Image"
-[image4]: ./examples/placeholder_small.png "Recovery Image"
-[image5]: ./examples/placeholder_small.png "Recovery Image"
-[image6]: ./examples/placeholder_small.png "Normal Image"
-[image7]: ./examples/placeholder_small.png "Flipped Image"
+[image3]: ./resources/recover_left.png "recover_left"
+
 
 ## Rubric Points
 ### Here I will consider the [rubric points](https://review.udacity.com/#!/rubrics/432/view) individually and describe how I addressed each point in my implementation.  
@@ -100,26 +97,10 @@ The figure below shows the final architecture used for my model with the output 
 
 #### 3. Creation of the Training Set & Training Process
 
-To capture good driving behavior, I first recorded two laps on track one using center lane driving. Here is an example image of center lane driving:
-
-![alt text][image2]
-
-I then recorded the vehicle recovering from the left side and right sides of the road back to center so that the vehicle would learn to .... These images show what a recovery looks like starting from ... :
+As mentioned in point four, I did two regular laps, two recovery laps, and used data provided by Udacity. The below figure shows an image taken from a recovery lap, here the car is being turned left back towards the center of the road.
 
 ![alt text][image3]
-![alt text][image4]
-![alt text][image5]
 
+The left and right camera images are also used in the model. I experimented adjusting the steering correction factor between 0.05 and 0.4. The lower values produced a car that would drive straight, but struggle on the sharper corners. High values would cause the car to wobble along straight sections, but could turn all corners on the track.
 
-To augment the data set, I flipped images and angles 
-
-![alt text][image6]
-![alt text][image7]
-
-
-After the collection process, I had X number of data points. I then preprocessed this data by ...
-
-
-I finally randomly shuffled the data set and put Y% of the data into a validation set. 
-
-I used this training data for training the model. The validation set helped determine if the model was over or under fitting. The ideal number of epochs was Z as evidenced by ... I used an adam optimizer so that manually training the learning rate wasn't necessary.
+Finally, data augmentation is implement by flipping images and reversing angle input. I found data augmentation did not always improve the model and was switched off in the final model. 
