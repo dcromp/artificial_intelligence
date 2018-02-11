@@ -17,8 +17,8 @@ The goals / steps of this project are the following:
 [//]: # (Image References)
 [image1]: ./resources/notcar_car.png
 [image2]: ./resources/hog_features.png
-[image3]: ./resources/windows.jpg
-[image4]: ./resources/false_posatives.jpg
+[image3]: ./resources/windows.png
+[image4]: ./resources/false_positives.png
 [image5]: ./resources/pipeline.png
 [image6]: ./resources/heatmap.png
 [image7]: ./resources/labels.png
