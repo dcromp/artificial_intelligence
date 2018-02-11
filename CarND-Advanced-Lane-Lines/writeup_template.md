@@ -91,11 +91,11 @@ First I played with the solbol thresholds, ultimately settling for the example a
 
 ![alt text][image6]
 
-Next was the color thresholds.
+Next was the color thresholds. This included playing with stauration and hue of the images
 
 ![alt text][image7]
 
-Finally I combined the image warping, sobol and color thresholds into the final result above. Fortunately, after a lot of playing, it was quite easy to see the lane lines in this final combination. I then had the confidence to move onto the next step. 
+Finally I combined the image warping, sobol and color thresholds into the final result above. I ultimatly decided to use the white and yellow thresholds in the threhold pipeline, defined in cell 15 within the model notebook. You can see the result of this pipeline in cell 16.
 
 
 #### 4. Find the pixels that represent lane lines
@@ -127,5 +127,9 @@ Here's a [link to my video result](./examples/test.mp4)
 #### 1. Briefly discuss any problems / issues you faced in your implementation of this project.  Where will your pipeline likely fail?  What could you do to make it more robust?
 
 I have begun the implement a class for finding and storing information about the polynomial lines. The next step in this class would be to set it so that it only remembers the last 10 or so lines to avoid the memory filling up and slow down in the code. Also I manually use the curvature of the road as a sanity check, which is recorded in this class. Next I would implement this in such a way that if the sanity check fails then the polynomial is recalculated using the histogram method from scratch, dumping all previous calculated polynomial lines. 
+
+There are certain conditions where this pipeline could fail. An extreme example would be if the road was covered by snow, hiding the lane lanes. This pipeline has no backup should this situation occur and would not be able to find the lane. Other weather conditions such as rain would also reduce the visibility of the lanes and could effect the pipeline.
+
+A more common condition would be if other vehicles obscure the lane line. Large vehicles, such as trucks, could cover the lane line in the entire detection area for some time. In this situation, perhaps it would be possible to use lane line not covered by the truck to estimate where it the obscured lane line should be.
 
 As mentioned above I also found it hard to find good thresholds, and there are almost certainly better combinations with different hyperparameters.
