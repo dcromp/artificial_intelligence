@@ -101,9 +101,6 @@ class DBWNode(object):
                                                                                     self.angular_vel)
 
             if self.dbw_enabled:
-                self.throttle = 1
-                self.brake = 0
-                self.steer = 0
                 self.publish(self.throttle, self.brake, self.steer)
             rate.sleep()
 
