@@ -76,7 +76,7 @@ class DBWNode(object):
         self.current_vel = None
         self.linear_vel = None
         self.angular_vel = None
-        self.dbw_enabled = False
+        self.dbw_enabled = True
         self.curr_ang_vel = None
         self.throttle = self.brake = self.steer = 0
 
