@@ -82,6 +82,7 @@ class TLDetector(object):
         self.camera_image = msg
         light_wp, state = self.process_traffic_lights()
 
+        self.upcoming_red_light_pub.publish(Int32(light_wp))
 
         '''
         Publish upcoming red lights at camera frequency.
