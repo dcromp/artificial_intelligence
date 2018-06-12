@@ -42,6 +42,7 @@ class WaypointUpdater(object):
         self.base_waypoints = None  # Base waypoint object
         self.waypoints_2d = None  # X Y coords of the waypoints
         self.waypoint_tree = None  # Tree object for quick waypoint lookup
+        self.stopline_wp_idx = -1
 
         self.loop()
 
@@ -73,9 +74,42 @@ class WaypointUpdater(object):
         return closest_idx
 
     def publish_waypoints(self, closest_idx):
-        lane = Lane()  # Message type of Lane
-        lane.waypoints = self.base_waypoints.waypoints[closest_idx:closest_idx + LOOKAHEAD_WPS]
-        self.final_waypoints_pub.publish(lane)
+        final_lane = self.generate_lane(closest_idx)  # List of waypoints with updated velocities
+        #lane.waypoints = self.base_waypoints.waypoints[closest_idx:closest_idx + LOOKAHEAD_WPS]
+        self.final_waypoints_pub.publish(final_lane)
+
+    def generate_lane(self, closest_idx):
+        lane = Lane()  # New empty lane message
+
+        # Constant number of waypoints ahead of the car
+        future_waypoints = self.base_waypoints.waypoints[closest_idx:closest_idx + LOOKAHEAD_WPS]
+
+        # No traffic light detected or it is too far away to care about
+        if self.stopline_wp_idx == -1 or (self.stopline_wp_idx >= closest_idx + LOOKAHEAD_WPS):
+            lane.waypoints = base_waypoints
+
+        # Slow the car down because of the detected traffic light
+        else:
+            lane.waypoints = self.decelerate_waypoints(future_waypoints, closest_idx)
+
+        return lane
+
+    def decelerate_waypoints(self, waypoints, closest_idx):
+        temp = []  # Place to store new waypoints to we dont overide basewaypoints
+
+        for index, wp in enumerate(waypoints):
+
+            p = Waypoint()
+            p.pose = wp.pose
+
+            stop_idx = max(self.stopline_wp_idx - closest_idx -2, 0)
+            dist = self.distance(waypoints, index, stop_idx)
+            vel = math.sqrt(2*MAX_DECEL*dist)
+            if vel < 1.:
+                vel = 0
+            p.twist.twist.linear.x = min(vel, wp.twist.twist.linear.x)
+            temp.append(p)
+        return temp
 
     def pose_cb(self, msg):
         # TODO: Implement
@@ -93,7 +127,7 @@ class WaypointUpdater(object):
 
     def traffic_cb(self, msg):
         # TODO: Callback for /traffic_waypoint message. Implement
-        pass
+        self.stopline_wp_idx = msg.data
 
     def obstacle_cb(self, msg):
         # TODO: Callback for /obstacle_waypoint message. We will implement it later
