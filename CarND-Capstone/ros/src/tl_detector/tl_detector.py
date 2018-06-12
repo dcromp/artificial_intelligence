@@ -82,7 +82,7 @@ class TLDetector(object):
         self.camera_image = msg
         light_wp, state = self.process_traffic_lights()
 
-        self.upcoming_red_light_pub.publish(Int32(light_wp))
+        #self.upcoming_red_light_pub.publish(Int32(light_wp))
 
         '''
         Publish upcoming red lights at camera frequency.
@@ -163,7 +163,7 @@ class TLDetector(object):
         # List of positions that correspond to the line to stop in front of for a given intersection
         stop_line_positions = self.config['stop_line_positions']
         if(self.pose):
-            car_position = self.get_closest_waypoint(self.pose.pose.posistion.x, self.pose.pose.posistion.y)
+            car_position = self.get_closest_waypoint(self.pose.pose.position.x, self.pose.pose.position.y)
 
             #TODO find the closest visible traffic light (if one exists)
             diff = len(self.waypoints.waypoints)
