@@ -2,6 +2,7 @@ from styx_msgs.msg import TrafficLight
 import tensorflow as tf
 import numpy as np
 import datetime
+import rospy
 
 class TLClassifier(object):
     def __init__(self):
