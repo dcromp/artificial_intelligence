@@ -31,6 +31,7 @@ class WaypointUpdater(object):
 
         rospy.Subscriber('/current_pose', PoseStamped, self.pose_cb)
         rospy.Subscriber('/base_waypoints', Lane, self.waypoints_cb)
+        rospy.Subscriber('/traffic_waypoint', Int32, self.traffic_cb)
 
         # TODO: Add a subscriber for /traffic_waypoint and /obstacle_waypoint below
 
@@ -126,6 +127,7 @@ class WaypointUpdater(object):
             # Construct kd tree
             self.waypoint_tree = KDTree(self.waypoints_2d)
 
+    # Traffic light callback function
     def traffic_cb(self, msg):
         # TODO: Callback for /traffic_waypoint message. Implement
         self.stopline_wp_idx = msg.data
