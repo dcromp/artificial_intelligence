@@ -9,10 +9,10 @@ class TLClassifier(object):
 
         sim = rospy.get_param('/simulator')
 
-        if sim:
+        if sim == 1:
             graph_dir = r'light_classification/frozen_inference_graph.pb'
         else:
-            graph_dir = r'light_classification/model/ssd_udacity/frozen_inference_graph.pb'
+            graph_dir = r'light_classification/model/ssd_udacity/frozen_inference_graph_site.pb'
 
 
         self.graph = tf.Graph()
