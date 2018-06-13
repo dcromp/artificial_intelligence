@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
 <launch>
-    <param name="sim" value=True />
+    <param name="someinteger1" value="1" type="int" />
     <node pkg="tl_detector" type="tl_detector.py" name="tl_detector" output="screen" cwd="node"/>
 </launch>
