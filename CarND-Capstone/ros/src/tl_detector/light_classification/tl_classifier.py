@@ -6,21 +6,22 @@ import datetime
 class TLClassifier(object):
     def __init__(self):
 
-        #if is_sim:
-            #PATH_TO_GRAPH = r'light_classification/model/ssd_sim/frozen_inference_graph.pb'
-        #else:
-            #PATH_TO_GRAPH = r'light_classification/model/ssd_udacity/frozen_inference_graph.pb'
+        sim = rospy.get_param('/simulator')
 
-        PATH_TO_GRAPH = r'light_classification/frozen_inference_graph.pb'
+        if sim:
+            graph_dir = r'light_classification/frozen_inference_graph.pb'
+        else:
+            graph_dir = r'light_classification/model/ssd_udacity/frozen_inference_graph.pb'
+
 
         self.graph = tf.Graph()
         self.threshold = .5
 
         with self.graph.as_default():
-            od_graph_def = tf.GraphDef()
-            with tf.gfile.GFile(PATH_TO_GRAPH, 'rb') as fid:
-                od_graph_def.ParseFromString(fid.read())
-                tf.import_graph_def(od_graph_def, name='')
+            graph_def = tf.GraphDef()
+            with tf.gfile.GFile(graph_dir, 'rb') as fid:
+                graph_def.ParseFromString(fid.read())
+                tf.import_graph_def(graph_def, name='')
 
             self.image_tensor = self.graph.get_tensor_by_name('image_tensor:0')
             self.boxes = self.graph.get_tensor_by_name('detection_boxes:0')
