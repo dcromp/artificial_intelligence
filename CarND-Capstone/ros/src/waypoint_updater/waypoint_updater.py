@@ -86,7 +86,7 @@ class WaypointUpdater(object):
 
         # No traffic light detected or it is too far away to care about
         if self.stopline_wp_idx == -1 or (self.stopline_wp_idx >= closest_idx + LOOKAHEAD_WPS):
-            lane.waypoints = base_waypoints
+            lane.waypoints = future_waypoints
 
         # Slow the car down because of the detected traffic light
         else:
