@@ -11,8 +11,8 @@ class TLClassifier(object):
 
         if sim == 1:
             graph_dir = r'light_classification/frozen_inference_graph_sim.pb'
-        #else:
-            #graph_dir = r'light_classification/frozen_inference_graph_site.pb'
+        else:
+            graph_dir = r'light_classification/frozen_inference_graph_site.pb'
 
 
         self.graph = tf.Graph()
